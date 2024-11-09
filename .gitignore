@@ -1,3 +1,6 @@
+#IDE garbage
+*.idea
+
 # Logs
 logs
 *.log
