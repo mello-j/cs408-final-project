@@ -67,5 +67,17 @@ so that users could access it from this class without cloning the repo and runni
 
 ## Project Wireframe
 
+### Page 1 - Login
+![login page](/img/LoginPage.jpg)
 
-![wireframe](wireframe-example.png)
+### Page 2 - Dashboard
+![dashboard page](/img/DashboardPage.jpg)
+
+### Page 3 - Transact
+![transact page](/img/TransactPage.jpg)
+
+### Page 4 - Download
+![download page](/img/DownloadPage.jpg)
+
+### Page 5 - Contact
+![Contact page](/img/ContactPage.jpg)
