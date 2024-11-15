@@ -68,16 +68,16 @@ so that users could access it from this class without cloning the repo and runni
 ## Project Wireframe
 
 ### Page 1 - Login
-![login page](/img/LoginPage.jpg)
+![login page](/img/wireframes/LoginPage.jpg)
 
 ### Page 2 - Dashboard
-![dashboard page](/img/DashboardPage.jpg)
+![dashboard page](/img/wireframes/DashboardPage.jpg)
 
 ### Page 3 - Transact
-![transact page](/img/TransactPage.jpg)
+![transact page](/img/wireframes/TransactPage.jpg)
 
 ### Page 4 - Download
-![download page](/img/DownloadPage.jpg)
+![download page](/img/wireframes/DownloadPage.jpg)
 
 ### Page 5 - Contact
-![Contact page](/img/ContactPage.jpg)
+![Contact page](/img/wireframes/ContactPage.jpg)
