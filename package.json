@@ -7,7 +7,7 @@
   "author": "Pat von Student",
   "scripts": {
     "lint:html": "htmlhint"
-    },
+  },
   "devDependencies": {
     "qunit": "^2.21.1"
   }

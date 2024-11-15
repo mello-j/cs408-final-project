@@ -1,18 +1,33 @@
-window.onload = loaded;
+window.onload = function() {
+    insertNavbar();
+};
 
-/**
- * Simple Function that will be run when the browser is finished loading.
- */
-function loaded() {
-    // Assign to a variable so we can set a breakpoint in the debugger!
-    const hello = sayHello();
-    console.log(hello);
-}
+function insertNavbar() {
+    const navHtml =`
+        <nav>
+          <a href="../pages/index.html">Home</a>
+          <a href="../pages/login.html">Login</a>
+          <a href="../pages/index.html">Dashboard</a>
+          <a href="../pages/login.html">Transact</a>
+          <a href="../pages/index.html">Download</a>
+          <a href="../pages/login.html">Contact</a>
+        </nav>
+    `;
 
-/**
- * This function returns the string 'hello'
- * @return {string} the string hello
- */
-export function sayHello() {
-    return 'hello';
-}
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header){
+        header.innerHTML += navHtml;
+    } else {
+        console.log('No Header elements');
+    }
+
+    if (footer){
+        footer.innerHTML += navHtml;
+    } else {
+        console.log('No footer elements');
+    }
+
+    }
+
+
