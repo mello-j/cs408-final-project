@@ -27,7 +27,12 @@ function insertNavbar() {
     } else {
         console.log('No footer elements');
     }
+}
 
-    }
+function detectActivePage(){
+    currentPage =window.location.pathname;
+    console.log(currentPage);
+}
+
 
 
