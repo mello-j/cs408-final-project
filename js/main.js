@@ -13,7 +13,6 @@ window.onload = function() {
 
     if (currentPage == 'transact') {
         toggleDataEntry();
-        toggleDeleteEntry();
         addRow();
         putData();
     }
@@ -131,34 +130,6 @@ function toggleDataEntry() {
             dataEntryForm.style.display = 'flex';
             addRowButton.style.visibility = 'hidden';
             toggleButton.textContent = 'Multiple Data Entry Mode';
-        }
-    });
-}
-
-function toggleDeleteEntry() {
-    const toggleButton = document.getElementById('oops-button');
-    const dataEntryTable = document.getElementById('transact-data-table');
-    const dataEntryForm = document.getElementById('transact-data-form');
-    const addRowButton = document.getElementById('add-row');
-    const addTransaction= document.getElementById('submit-button');
-    const deleteTransaction= document.getElementById('delete-button');
-
-
-    toggleButton.addEventListener('click', () => {
-        if (dataEntryTable.style.display === 'none') {
-            // Switch to table view for delete
-            dataEntryTable.style.display = 'table';
-            addRowButton.style.visibility = 'hidden';
-            addTransaction.style.visibility = 'hidden';
-            deleteTransaction.style.visibility = 'visible';
-            dataEntryForm.style.display = 'none';
-            toggleButton.textContent = 'Never mind, I\'m perfect';
-        } else {
-            // Switch to form view
-            dataEntryTable.style.display = 'none';
-            dataEntryForm.style.display = 'flex';
-            addRowButton.style.visibility = 'hidden';
-            toggleButton.textContent = 'Ooopsie!';
         }
     });
 }
