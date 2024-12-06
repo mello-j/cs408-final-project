@@ -1,25 +1,72 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>User Dashboard</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/main.js"></script>
+    <meta charset="utf-8">
+    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/main.js"></script>
+    <style>
+        .charts-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .chart-wrapper {
+            width: 45%;
+            min-width: 300px;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <h1>Justin's Awesome Website</h1>
-  <h2>This website is under construction...</h2>
-  <!-- The header will be inserted here by JavaScript -->
-</header>
-<h3>Stuff goes here</h3>
-
-<footer>
-  <!-- The footer will be inserted here by JavaScript -->
-</footer>
+    <div id="display-logo">
+        <img id="logo" src="../img/money.png" alt="logo">
+        <h1>Justin's Awesome Application</h1>
+        <img id="logo" src="../img/finance.png" alt="logo">
+    </div>
+    <hr>
+    <header>
+    </header>
+    
+    <div class="charts-container">
+        <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+    <button id="update-report">Show Dashboard Filter</button>
+    <section id="dashboard-data-form">
+      <h2 id="form-header">Update Your User Dashboard!</h2>
+      <form id="data-form">
+          <label for="date-field">Date: </label>
+          <input type="date" id="date-field" name="date" required>
+          <label for="Amount">Amount: </label>
+          <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter an amount">
+          <label for="transaction-type">Type: </label>
+            <select id="transaction-type" name="transaction-type" required>
+              <option value="">-</option>
+              <option value="debit">Debit</option>
+              <option value="credit">Credit</option>
+            </select>
+          <label for="category-type">Category: </label>
+          <select id="category-type" name="category" required>
+            <option value="">-</option>
+            <option value="Rent">Rent</option>
+            <option value="FastFood">FastFood</option>
+            <option value="Supplies">Supplies</option>
+            <option value="Gas">Gas</option>
+            <option value="Fun">Fun</option>
+            <option value="Misc">Misc</option>
+          </select>
+      </form>
+  </section>
+  <button id="generate-report">Update Charts</button>
+    <footer>
+    </footer>
 </body>
 </html>
-

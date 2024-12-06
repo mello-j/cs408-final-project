@@ -10,16 +10,113 @@
   <script src="../js/main.js"></script>
 </head>
 <body>
+  <div id="display-logo">
+    <img id="logo" src="../img/money.png" alt="logo">
+    <h1>Justin's Awesome Application</h1>
+    <img id="logo" src="../img/finance.png" alt="logo">
+  </div>
+  <hr>
 <header>
-  <h1>Justin's Awesome Website</h1>
-  <h2>This website is under construction...</h2>
-  <!-- The header will be inserted here by JavaScript -->
+  <!-- The rest of header will be inserted here by JavaScript -->
 </header>
-<h3>Stuff goes here</h3>
-
+<article id="page-info">
+  <section id="page-body">
+    <h2> Transactions</h2>
+    <h3> Welcome to our Transactions page!</h3>
+    <ol>
+      <li> Here you can add new items to the database. You can add items one at a time or in bulk. </li>
+      <li> To add items one at a time, fill out the form below and click the "Add Item" button. </li>
+      <li> To add items in bulk, click the "Multiple Entry Mode" button and fill out the table that appears. </li>  
+      <li> To submit your data, click the <strong>"Add Transaction"</strong> button. </li>
+      <li> Made a mistake? No worries, click the Ooopsie button to filter data and delete or edit as needed!</li>
+    </ol>
+  </section>
+  <section id="page-buttons">
+    <button id="toggle-button">Multiple Data Entry Mode</button>
+    <button id="oops-button">Ooopsie!</button>
+    <button id="submit" id="submit-button">Add Transaction</button>
+  </section>
+</article>
+    <!-- The single entry form is the default but multiple entry mode can be selected-->
+    <section id="transact-data-form">
+      <h2 id="form-header">Add New Item to Database</h2>
+      <form id="data-form">
+          <label for="date-field">Date: </label>
+          <input type="date" id="date-field" name="date" required>
+          <label for="Amount">Amount: </label>
+          <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter the amount">
+          <label for="transaction-type">Type: </label>
+            <select id="transaction-type" name="transaction type" required>
+              <option value="debit">Debit</option>
+              <option value="credit">Credit</option>
+            </select>
+          <label for="category-type">Category: </label>
+          <select id="category-type" name="category" required>
+            <option value="Rent">Rent</option>
+            <option value="FastFood">FastFood</option>
+            <option value="Supplies">Supplies</option>
+            <option value="Gas">Gas</option>
+            <option value="Fun">Fun</option>
+            <option value="Misc">Misc</option>
+          </select>
+          <label for="desc-field">Date: </label>
+          <input type="textarea" id="desc-field" name="description" required>
+      </form>
+  </section>
+    <!-- The table is hidden by default but can be used for multiple entry mode-->
+    <table id="transact-data-table">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Transaction-type</th>
+                <th scope="col">Category</th>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Short Description</th>
+                <th scope="col" id="delete">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here-->
+            <td><input type="date" name="transaction-date"></td>
+            <td>
+              <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter the amount"></td>
+            <td>
+                <select id="transaction-type" name="transaction-type" required>
+                  <option value="debit">Debit</option>
+                  <option value="credit">Credit</option>
+                </select></td>
+            <td>
+              <select id="category-type" name="category" required>
+                <option value="Rent">Rent</option>
+                <option value="FastFood">FastFood</option>
+                <option value="Supplies">Supplies</option>
+                <option value="Gas">Gas</option>
+                <option value="Fun">Fun</option>
+                <option value="Misc">Misc</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" id="transaction-id" name="Transaction ID" required placeholder="Enter the ID"></td>
+            </td>
+            <td>          
+              <input type="textarea" id="desc-field" name="description" required placeholder="Enter a description">
+            </td>
+            <td>
+              <select>
+              <option value="Add">Add</option>
+              <option value="Edit">Edit</option>
+            </select>
+          </td>
+        </tbody>
+    </table>
+    <hr>
+    <footer>
+      <!-- The footer will be inserted here by JavaScript -->
+    </footer>
+    <div id="footer-logo">
+      <img id="logo" src="../img/footer.png" alt="footer-logo">
+    </div>
 </body>
-<footer>
-  <!-- The footer will be inserted here by JavaScript -->
-</footer>
 </html>
 
