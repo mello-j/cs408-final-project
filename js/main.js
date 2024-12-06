@@ -3,14 +3,18 @@ const apiRoute = "https://68y5yyii0l.execute-api.us-east-2.amazonaws.com/transac
 
 //global variable to keep track of the id for put request
 let id = parseInt(localStorage.getItem('currentId')) || 1;
-
-
 let currentPage;
 
-window.onload = function() {
+
+/**
+ * Main initialization function that runs on page load
+ * Routes to appropriate functionality based on current page
+ */
+window.onload = function () {
     insertNavbar();
     currentPage = detectActivePage();
 
+    // Route to appropriate page handler based on current page
     if (currentPage == 'transact') {
         toggleDataEntry();
         addRow();
@@ -26,7 +30,7 @@ window.onload = function() {
 
         if (retrievedData) {
             let parsedData = JSON.parse(retrievedData);
-            loadTable(parsedData); // Assuming your data is an object with a 'transactions' array
+            loadTable(parsedData);
         } else {
             console.log('No data found in localStorage');
         }
@@ -51,10 +55,15 @@ window.onload = function() {
     }
 };
 
+
+/**
+ * Creates and inserts navigation bar into header and footer
+ * Contains links to all major sections of the application
+ */
 function insertNavbar() {
     /* Create the nav bar */
     console.log("I am here!");
-    const navHtml =`
+    const navHtml = `
         <nav>
             <ul>
                 <li id="index"><a href="../pages/index.html">Home</a></li>
@@ -71,22 +80,26 @@ function insertNavbar() {
     /* Insert the nav bar into the header and footer */
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
-    if (header){
+    if (header) {
         header.innerHTML += navHtml;
     } else {
         console.log('No Header elements');
     }
 
-    if (footer){
+    if (footer) {
         footer.innerHTML += navHtml;
     } else {
         console.log('No footer elements');
     }
 }
 
-function detectActivePage(){
+/**
+ * Detects and marks the current active page in navigation
+ * @returns {string} The current page identifier
+ */
+function detectActivePage() {
     /* Get the current page */
-    currentPage =window.location.pathname;
+    currentPage = window.location.pathname;
 
     /* Split the path and get the last element */
     currentPage = currentPage.split("/");
@@ -103,19 +116,23 @@ function detectActivePage(){
     return currentPage;
 }
 
+
+/**
+ * Toggles between single and multiple data entry modes
+ * Controls visibility of relevant UI elements
+ */
 function toggleDataEntry() {
     const toggleButton = document.getElementById('toggle-button');
     const dataEntryTable = document.getElementById('transact-data-table');
     const dataEntryForm = document.getElementById('transact-data-form');
     const addRowButton = document.getElementById('add-row');
-    const deleteTransaction= document.getElementById('delete-button');
+    const deleteTransaction = document.getElementById('delete-button');
 
     // Set initial states
     dataEntryTable.style.display = 'none';
     dataEntryForm.style.display = 'flex';
     addRowButton.style.visibility = 'hidden';
     deleteTransaction.style.visibility = 'hidden';
-
 
     toggleButton.addEventListener('click', () => {
         if (dataEntryTable.style.display === 'none') {
@@ -134,37 +151,39 @@ function toggleDataEntry() {
     });
 }
 
+/**
+ * Attaches event listeners to all delete buttons
+ */
 function attachDeleteListeners() {
     const deleteButtons = document.querySelectorAll(".delete-button");
     deleteButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             deleteRow(button.value, button);
         });
     });
 }
 
+/**
+ * Fetches data and populates delete table with delete buttons
+ */
 function fetchDeleteData() {
     const reportButton = document.getElementById('delete-report');
     reportButton.addEventListener('click', () => {
-
         console.log("fetching data from: ", apiRoute);
 
-        // Use fetch to get the data from the API route
         fetch(apiRoute)
             .then(response => {
-                // Check for a successful response
                 console.log('Response:', response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json(); // Parse JSON from the response
+                return response.json();
             })
             .then(data => {
-                // output to the table
                 const tableBody = document.querySelector("#transact-delete-table tbody");
-                // Clear any existing rows
                 tableBody.innerHTML = '';
-                // If not an array, just create single row
+
+                // Handle single item vs array of items
                 if (!Array.isArray(data)) {
                     const row = document.createElement('tr');
                     console.log(data);
@@ -181,7 +200,8 @@ function fetchDeleteData() {
                     tableBody.appendChild(row);
                     return;
                 }
-                // If it is an array, proceed with forEach
+
+                // Create rows for array of items
                 data.forEach(transaction => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -200,9 +220,14 @@ function fetchDeleteData() {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-        });
+    });
 }
 
+/**
+ * Deletes a specific row from the database and updates UI
+ * @param {string} deleteId - ID of row to delete
+ * @param {Element} button - Button element that triggered delete
+ */
 async function deleteRow(deleteId, button) {
     try {
         console.log("Deleting row with id:", deleteId);
@@ -213,53 +238,51 @@ async function deleteRow(deleteId, button) {
             }
         });
 
-        // Check if the request was successful (status 200)
         if (response.ok) {
             let row = button.closest('tr');
-            row.innerHTML = '';  // Clear the row from the table
-
-            // Log the successful deletion for debugging purposes
+            row.innerHTML = '';
             console.log("Successfully deleted: " + deleteId);
         } else {
-            // Handle non-successful responses
             console.error('Failed to delete row. Status:', response.status);
         }
     } catch (error) {
-        // Handle any network or other errors
         console.error('Error deleting row:', error);
     }
 }
 
+
+/**
+ * Fetches transaction data and stores in localStorage
+ */
 function fetchData() {
     const reportButton = document.getElementById('generate-report');
     reportButton.addEventListener('click', () => {
-
         console.log("fetching data from: ", apiRoute);
 
-        // Use fetch to get the data from the API route
         fetch(apiRoute)
             .then(response => {
-                // Check for a successful response
                 console.log('Response:', response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json(); // Parse JSON from the response
+                return response.json();
             })
             .then(data => {
-                // store the data for access later
                 localStorage.setItem('transactionData', JSON.stringify(data));
                 console.log('Data stored in localStorage:', data);
                 console.log(localStorage.getItem('transactionData'));
-                // Redirect to download.html to display the data
-                window.location.href = 'download.html'; // Adjust the path as necessary
+                window.location.href = 'download.html';
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-        });
+    });
 }
 
+/**
+ * Fetches data specifically for dashboard visualization
+ * @returns {Promise} Resolves to dashboard data or null if error
+ */
 async function fetchDashboardData() {
     try {
         const response = await fetch(apiRoute);
@@ -267,7 +290,6 @@ async function fetchDashboardData() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        // Store in localStorage for the dashboard
         localStorage.setItem('transactionData', JSON.stringify(data));
         return data;
     } catch (error) {
@@ -276,19 +298,21 @@ async function fetchDashboardData() {
     }
 }
 
-function loadTable(transactions){
+/**
+ * Populates table with transaction data
+ * @param {Object|Array} transactions - Transaction data to display
+ */
+function loadTable(transactions) {
     console.log(transactions);
     const tableBody = document.querySelector("#transact-display-table tbody");
-
-    // Clear any existing rows
     tableBody.innerHTML = '';
 
-   // If not an array, just create single row
-   if (!Array.isArray(transactions)) {
-    const row = document.createElement('tr');
-    console.log(transactions);
-    console.log(typeof transactions);
-    row.innerHTML = `
+    // Handle single transaction vs array
+    if (!Array.isArray(transactions)) {
+        const row = document.createElement('tr');
+        console.log(transactions);
+        console.log(typeof transactions);
+        row.innerHTML = `
         <td>${transactions.date}</td>
         <td>${transactions.amount}</td>
         <td>${transactions.type}</td>
@@ -296,11 +320,11 @@ function loadTable(transactions){
         <td>${transactions.id}</td>
         <td>${transactions.desc}</td>
     `;
-    tableBody.appendChild(row);
-    return;
-}
+        tableBody.appendChild(row);
+        return;
+    }
 
-    // If it is an array, proceed with forEach
+    // Handle array of transactions
     transactions.forEach(transaction => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -314,146 +338,142 @@ function loadTable(transactions){
         tableBody.appendChild(row);
     });
 }
-
+/**
+ * Creates and displays dashboard visualizations
+ * @param {Array} data - Transaction data for visualization
+ */
 function createDashboard(data) {
     // Process data for charts
     const categories = {};
     console.log(data);
     data.forEach(transaction => {
-      console.log("test");
-      if (transaction.type === 'expense') {
-        categories[transaction.category] = (categories[transaction.category] || 0) + parseFloat(transaction.amount);
-      }
+        console.log("test");
+        if (transaction.type === 'expense') {
+            categories[transaction.category] = (categories[transaction.category] || 0) + parseFloat(transaction.amount);
+        }
     });
-  
-    // Creating shades of your brand color
+
+    // Define chart colors
     const chartColors = [
-      '#92D36E', // Original brand color
-      '#7AB559', // Darker
-      '#A8DC89', // Lighter
-      '#649744', // Even darker
-      '#BFE5A4', // Even lighter
-      '#4D7934' // Darkest
+        '#92D36E', // Original brand color
+        '#7AB559', // Darker
+        '#A8DC89', // Lighter
+        '#649744', // Even darker
+        '#BFE5A4', // Even lighter
+        '#4D7934' // Darkest
     ];
-  
-    // Get the pie chart canvas element
+
+    // Create/Update Pie Chart
     const pieChartCanvas = document.getElementById('pieChart');
-  
-    // Check if the pie chart already exists
     let pieChart = Chart.getChart(pieChartCanvas);
-  
-    // If the pie chart exists, update its data
+
     if (pieChart) {
-      pieChart.data.labels = Object.keys(categories);
-      pieChart.data.datasets[0].data = Object.values(categories);
-      pieChart.update();
+        pieChart.data.labels = Object.keys(categories);
+        pieChart.data.datasets[0].data = Object.values(categories);
+        pieChart.update();
     } else {
-      // If the pie chart doesn't exist, create a new one
-      pieChart = new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: {
-          labels: Object.keys(categories),
-          datasets: [{
-            data: Object.values(categories),
-            backgroundColor: chartColors
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Expenses by Category'
+        pieChart = new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(categories),
+                datasets: [{
+                    data: Object.values(categories),
+                    backgroundColor: chartColors
+                }]
             },
-            legend: {
-              position: 'bottom'
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Expenses by Category'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
-          }
-        }
-      });
+        });
     }
-  
-    // Get the bar chart canvas element
+
+    // Create/Update Bar Chart
     const barChartCanvas = document.getElementById('barChart');
-  
-    // Check if the bar chart already exists
     let barChart = Chart.getChart(barChartCanvas);
-  
-    // If the bar chart exists, update its data
+
     if (barChart) {
-      barChart.data.labels = Object.keys(categories);
-      barChart.data.datasets[0].data = Object.values(categories);
-      barChart.update();
+        barChart.data.labels = Object.keys(categories);
+        barChart.data.datasets[0].data = Object.values(categories);
+        barChart.update();
     } else {
-      // If the bar chart doesn't exist, create a new one
-      barChart = new Chart(barChartCanvas, {
-        type: 'bar',
-        data: {
-          labels: Object.keys(categories),
-          datasets: [{
-            label: 'Amount ($)',
-            data: Object.values(categories),
-            backgroundColor: '#92D36E' // Using original brand color for bars
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Category Breakdown'
+        barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(categories),
+                datasets: [{
+                    label: 'Amount ($)',
+                    data: Object.values(categories),
+                    backgroundColor: '#92D36E'
+                }]
             },
-            legend: {
-              display: false
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Category Breakdown'
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Amount ($)'
+                        }
+                    }
+                }
             }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Amount ($)'
-              }
-            }
-          }
-        }
-      });
+        });
     }
-  }
+}
 
-
-function toggleReporting(){
-    /* Get the date entry form */
+/**
+ * Toggles dashboard reporting interface visibility
+ */
+function toggleReporting() {
     const toggleButton = document.getElementById('update-report');
     const dataEntryForm = document.getElementById('dashboard-data-form');
     const updateButton = document.getElementById('generate-report');
 
-    //set default display
     dataEntryForm.style.display = 'none';
     updateButton.style.visibility = 'hidden';
 
-
-    /* Toggle the display */    
     toggleButton.addEventListener('click', () => {
         if (dataEntryForm.style.display === 'flex') {
-            // If the form is shown, hide it and update the button
-            dataEntryForm.style.display = 'none';  // hide the form
-            toggleButton.textContent = 'Show Dashboard Filter'; // Update button text
+            dataEntryForm.style.display = 'none';
+            toggleButton.textContent = 'Show Dashboard Filter';
             updateButton.style.visibility = 'hidden';
         } else {
-            // If the form is not visible, show it and update the button
-            dataEntryForm.style.display = 'flex';  // show the form
-            toggleButton.textContent = 'Hide Dashboard Filter'; // Update button text
+            dataEntryForm.style.display = 'flex';
+            toggleButton.textContent = 'Hide Dashboard Filter';
             updateButton.style.visibility = 'visible';
-        } 
+        }
     });
 }
 
-// CSV Download Function
+
+/**
+ * Handles CSV file download functionality for transaction data
+ * Creates a CSV file from table data and triggers browser download
+ * Includes error handling for missing table or empty data
+ */
 function downloadCSV() {
     const downloadButton = document.getElementById('download-csv');
-    
-    /* download a csv if user clicks */    
+
+    /* download a csv if user clicks */
     downloadButton.addEventListener('click', () => {
         const table = document.getElementById('transact-display-table');
         if (!table) {
@@ -466,14 +486,14 @@ function downloadCSV() {
         }
 
         let csv = [];
-        
+
         // Get headers
         const headers = [];
         table.querySelectorAll('th').forEach(th => {
             headers.push(th.textContent.trim());
         });
         csv.push(headers.join(','));
-        
+
         // Get data rows
         table.querySelectorAll('tbody tr').forEach(row => {
             const rowData = [];
@@ -483,7 +503,7 @@ function downloadCSV() {
             });
             csv.push(rowData.join(','));
         });
-        
+
         // Create and trigger download
         const csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
         const encodedUri = encodeURI(csvContent);
@@ -496,6 +516,10 @@ function downloadCSV() {
     });
 }
 
+/**
+ * Clears the transaction table and removes data from localStorage
+ * Attached to clear button click event
+ */
 function clearTable() {
     const clearButton = document.getElementById('clear-report');
     clearButton.addEventListener('click', (event) => {
@@ -510,7 +534,11 @@ function clearTable() {
     });
 }
 
-function contactUs(){
+/**
+ * Placeholder contact form handler
+ * Currently displays an alert indicating functionality is disabled
+ */
+function contactUs() {
     const sendButton = document.getElementById('send');
     sendButton.addEventListener('click', (event) => {
         // Prevent default behavior if necessary (e.g., form submission)
@@ -519,120 +547,145 @@ function contactUs(){
     });
 }
 
+/**
+ * Handles data submission for both single and multiple entry modes
+ * Determines which mode is active and calls appropriate submission function
+ */
 function putData() {
     const submitButton = document.getElementById('submit-button');
     submitButton.addEventListener('click', () => {
-    
-    const dataEntryTable = document.getElementById('transact-data-table');
-    const dataEntryForm = document.getElementById('transact-data-form');
-    
-    if (dataEntryTable.style.display === 'table') {
-        pushDataFromTable();
-        clearTransactionTable();
-    }
-    else {
-        let payload ={
-            date: document.getElementById('date-field').value,
-            amount: document.getElementById('amount-field').value,
-            type: document.getElementById('transaction-type').value,
-            category: document.getElementById('category-type').value,
-            desc: document.getElementById('desc-field').value,
-            id: String(id)
+
+        const dataEntryTable = document.getElementById('transact-data-table');
+        const dataEntryForm = document.getElementById('transact-data-form');
+
+        if (dataEntryTable.style.display === 'table') {
+            pushDataFromTable();
+            clearTransactionTable();
         }
-        pushData(payload);
-        clearTransactionForm();
-    }
+        else {
+            let payload = {
+                date: document.getElementById('date-field').value,
+                amount: document.getElementById('amount-field').value,
+                type: document.getElementById('transaction-type').value,
+                category: document.getElementById('category-type').value,
+                desc: document.getElementById('desc-field').value,
+                id: String(id)
+            }
+            pushData(payload);
+            clearTransactionForm();
+        }
     });
 }
 
+/**
+ * Processes and submits data from multiple entry table mode
+ * Skips empty rows and validates required fields
+ */
 async function pushDataFromTable() {
     const rows = document.querySelectorAll("#transact-data-table tbody tr");
 
     for (const row of rows) {
-       // Get values from each row
-       const date = row.querySelector('#table-date-field').value;
-       const amount = row.querySelector('#table-amount-field').value;
-       const type = row.querySelector('#table-transaction-type').value;
-       const category = row.querySelector('#table-category-type').value;
-       const desc = row.querySelector('#table-desc-field').value;
+        // Get values from each row
+        const date = row.querySelector('#table-date-field').value;
+        const amount = row.querySelector('#table-amount-field').value;
+        const type = row.querySelector('#table-transaction-type').value;
+        const category = row.querySelector('#table-category-type').value;
+        const desc = row.querySelector('#table-desc-field').value;
 
-       // Check if any of the values are empty
-       if (!date || !amount || !type || !category || !desc) {
-           console.log("Empty row detected, skipping...");
-           continue; // Skip this row
-       }
+        // Check if any of the values are empty
+        if (!date || !amount || !type || !category || !desc) {
+            console.log("Empty row detected, skipping...");
+            continue; // Skip this row
+        }
 
-       // If all values are present, create the payload and push data
-       let payload = {
-           date: date,
-           amount: amount,
-           type: type,
-           category: category,
-           id: String(id),
-           desc: desc
-       };
+        // If all values are present, create the payload and push data
+        let payload = {
+            date: date,
+            amount: amount,
+            type: type,
+            category: category,
+            id: String(id),
+            desc: desc
+        };
 
         console.log(payload);
-        pushData(payload);
+        await pushData(payload);
     }
 }
 
-async function pushData(data) {      
+/**
+ * Sends transaction data to the API
+ * Handles PUT request and updates local ID counter on success
+ * @param {Object} data - Transaction data payload
+ */
+async function pushData(data) {
     try {
         // Perform the PUT request using fetch
         const response = await fetch(apiRoute, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         });
-        
+
         console.log(`Successfully pulled: ${data.date}, ${data.amount}, ${data.type}, ${data.category}, ${data.desc}, ${data.id}`);
 
         // Check if the request was successful
         if (response.ok) {
-          console.log(`Successfully added: ${data.date}, ${data.amount}, ${data.type}, ${data.category}, ${data.desc}, ${data.id}`);
-          id++; // Increment the id for the next PUT request
-          localStorage.setItem('currentId', id); // Store the new id
+            console.log(`Successfully added: ${data.date}, ${data.amount}, ${data.type}, ${data.category}, ${data.desc}, ${data.id}`);
+            id++; // Increment the id for the next PUT request
+            localStorage.setItem('currentId', id); // Store the new id
         } else {
-          console.error(`Failed to submit data: ${response.status} ${response.statusText}`);
+            console.error(`Failed to submit data: ${response.status} ${response.statusText}`);
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error submitting data:", error);
-      }
     }
+}
 
-    function clearTransactionForm() {
-        // Clear the form fields
-        document.getElementById('date-field').value = '';
-        document.getElementById('amount-field').value = '';
-        document.getElementById('transaction-type').value = 'expense';
-        document.getElementById('category-type').value = 'food';
-        document.getElementById('desc-field').value = '';
+/**
+ * Resets single entry form to default values
+ * Called after successful form submission
+ */
+function clearTransactionForm() {
+    // Clear the form fields
+    document.getElementById('date-field').value = '';
+    document.getElementById('amount-field').value = '';
+    document.getElementById('transaction-type').value = 'expense';
+    document.getElementById('category-type').value = 'food';
+    document.getElementById('desc-field').value = '';
+}
+
+/**
+ * Clears multiple entry table and adds a fresh row
+ * Called after successful table submission
+ */
+function clearTransactionTable() {
+    // Clear the table contents
+    const tableBody = document.querySelector("#transact-data-table tbody");
+    tableBody.innerHTML = '';
+    // Trigger the 'click' event to add a new row
+    const addRowButton = document.getElementById('add-row');
+    if (addRowButton) {
+        addRowButton.click(); // This simulates the click on the "Add Row" button
     }
+}
 
-    function clearTransactionTable() {
-        // Clear the table contents
-        const tableBody = document.querySelector("#transact-data-table tbody");
-        tableBody.innerHTML = '';
-        // Trigger the 'click' event to add a new row
-        const addRowButton = document.getElementById('add-row');
-        if (addRowButton) {
-            addRowButton.click(); // This simulates the click on the "Add Row" button
-        }
-    }
+/**
+ * Adds new row to multiple entry table
+ * Creates input fields for transaction data entry
+ */
+function addRow() {
+    const addRowButton = document.getElementById('add-row');
+    addRowButton.addEventListener('click', (event) => {
+        // Prevent default behavior if necessary (e.g., form submission)
+        if (event) event.preventDefault();
 
-    function addRow() {
-        const addRowButton = document.getElementById('add-row');
-        addRowButton.addEventListener('click', (event) => {
-            // Prevent default behavior if necessary (e.g., form submission)
-            if (event) event.preventDefault();
-            
-            // Create new row
-            let newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input id="table-date-field" type="date" name="transaction-date"></td>
+        // Create new row
+        let newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input id="table-date-field" type="date" name="transaction-date"></td>
             <td>
               <input type="text" id="table-amount-field" name="Transaction type" required placeholder="Enter the amount"></td>
             <td>
@@ -654,9 +707,9 @@ async function pushData(data) {
               <input type="textarea" id="table-desc-field" name="description" required placeholder="Enter a description">
             </td>
             `;
-    
-            // Append new row to the table
-            const tableBody = document.querySelector("#transact-data-table tbody");
-            tableBody.appendChild(newRow);
-        });
-    }
+
+        // Append new row to the table
+        const tableBody = document.querySelector("#transact-data-table tbody");
+        tableBody.appendChild(newRow);
+    });
+}

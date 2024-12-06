@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <script src="../js/main.js"></script>
 </head>
+
 <body>
   <div id="display-logo">
     <img id="logo" src="../img/money.png" alt="logo">
@@ -16,50 +17,51 @@
     <img id="logo" src="../img/finance.png" alt="logo">
   </div>
   <hr>
-<header>
-  <!-- The rest of header will be inserted here by JavaScript -->
-</header>
+  <header>
+    <!-- The rest of header will be inserted here by JavaScript -->
+  </header>
   <section id="page-body">
     <h2> Reporting</h2>
     <h3> Welcome to our reporting page!</h3>
     <ol>
-      <li> Here you can generate a report to view and download your transaction history for use with other programs! </li>
+      <li> Here you can generate a report to view and download your transaction history for use with other programs!
+      </li>
       <li> To start, specify criteria to filter by. If no criteria is selected, all of your data will be returned!</li>
     </ol>
   </section>
   <section id="transact-data-form">
     <h2 id="form-header">Specify Criteria for your Report!</h2>
     <form id="data-form">
-        <label for="date-field">Date: </label>
-        <input type="date" id="date-field" name="date" required>
-        <label for="Amount">Amount: </label>
-        <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter an amount">
-        <label for="transaction-type">Type: </label>
-          <select id="transaction-type" name="transaction-type" required>
-            <option value="">-</option>
-            <option value="debit">Debit</option>
-            <option value="credit">Credit</option>
-          </select>
-        <label for="category-type">Category: </label>
-        <select id="category-type" name="category" required>
-          <option value="">-</option>
-          <option value="Rent">Rent</option>
-          <option value="FastFood">FastFood</option>
-          <option value="Supplies">Supplies</option>
-          <option value="Gas">Gas</option>
-          <option value="Fun">Fun</option>
-          <option value="Misc">Misc</option>
-        </select>
+      <label for="date-field">Date: </label>
+      <input type="date" id="date-field" name="date" required>
+      <label for="Amount">Amount: </label>
+      <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter an amount">
+      <label for="transaction-type">Type: </label>
+      <select id="transaction-type" name="transaction-type" required>
+        <option value="">-</option>
+        <option value="debit">Debit</option>
+        <option value="credit">Credit</option>
+      </select>
+      <label for="category-type">Category: </label>
+      <select id="category-type" name="category" required>
+        <option value="">-</option>
+        <option value="Rent">Rent</option>
+        <option value="FastFood">FastFood</option>
+        <option value="Supplies">Supplies</option>
+        <option value="Gas">Gas</option>
+        <option value="Fun">Fun</option>
+        <option value="Misc">Misc</option>
+      </select>
     </form>
-</section>
-<button id="generate-report">Generate Report</button>
-<hr>
-<footer>
-  <!-- The footer will be inserted here by JavaScript -->
-</footer>
-<div id="footer-logo">
-  <img id="logo" src="../img/footer.png" alt="footer-logo">
-</div>
+  </section>
+  <button id="generate-report">Generate Report</button>
+  <hr>
+  <footer>
+    <!-- The footer will be inserted here by JavaScript -->
+  </footer>
+  <div id="footer-logo">
+    <img id="logo" src="../img/footer.png" alt="footer-logo">
+  </div>
 </body>
-</html>
 
+</html>

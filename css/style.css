@@ -17,7 +17,8 @@ body {
   margin: 2rem;
 }
 
-p, ol {
+p,
+ol {
   text-align: left;
 }
 
@@ -30,13 +31,13 @@ p, ol {
   margin: 0px;
   justify-content: space-between;
   align-items: center;
-  background-color:#92D36E;
+  background-color: #92D36E;
   border: 2px solid #333;
   color: #333;
   padding: .25rem;
 }
 
-hr{
+hr {
   width: 100%;
   color: #92D36E;
 }
@@ -109,14 +110,14 @@ footer {
   transform: scale(0.9);
 }
 
-#footer-logo{
+#footer-logo {
   width: 100%;
   height: 8em;
   border-radius: 5px;
   border: 1px solid #050505;
 }
 
-#footer-logo img{
+#footer-logo img {
   width: 100%;
   height: 100%;
 }
@@ -159,7 +160,8 @@ table select {
   border-radius: 5px;
 }
 
-table input, textarea {
+table input,
+textarea {
   width: 75%;
   height: 1.5rem;
   padding: .25rem;
@@ -183,7 +185,8 @@ table input::placeholder {
   font-size: 1em;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #92D36E;
 }
 
@@ -206,9 +209,19 @@ button {
   align-items: center;
 }
 
-#download-csv, #download-pdf, #send, #generate-report, #update-report, #clear-report, #submit-button, #add-row, #delete-report, #delete-button, #toggle-button {
+#download-csv,
+#download-pdf,
+#send,
+#generate-report,
+#update-report,
+#clear-report,
+#submit-button,
+#add-row,
+#delete-report,
+#delete-button,
+#toggle-button {
   width: 25%;
-  gap: rem;  
+  gap: rem;
   align-self: center;
 }
 
@@ -229,7 +242,8 @@ button {
   padding: 1rem;
 }
 
-#page-body h2, h3 {
+#page-body h2,
+h3 {
   text-align: center;
 }
 
@@ -240,7 +254,8 @@ button {
 
 
 
-#transact-data-form, #dashboard-data-form {
+#transact-data-form,
+#dashboard-data-form {
   display: flex;
   flex-direction: column;
   color: black;
@@ -269,7 +284,8 @@ button {
   text-align: left;
 }
 
-#data-form input, #data-form select {
+#data-form input,
+#data-form select {
   background-color: whitesmoke;
   border: 1px solid black;
   align-self: center;
@@ -288,7 +304,7 @@ button {
   grid-template-columns: 1fr 1fr;
   color: black;
   border: 1px solid black;
-  background-color:#92D36E;
+  background-color: #92D36E;
   padding: 1rem;
   gap: .5rem;
   border-radius: 5px;
@@ -296,7 +312,8 @@ button {
   margin-top: 25px;
 }
 
-#contact-form input, #contact-form select {
+#contact-form input,
+#contact-form select {
   background-color: rgb(135, 131, 131);
   border: 1px solid black;
   border-radius: 5px;
@@ -308,8 +325,10 @@ button {
   margin: 2px;
 }
 
-#content, #contact-form{
-  border-radius: 5px;;
+#content,
+#contact-form {
+  border-radius: 5px;
+  ;
   background-color: #444444;
   color: #92D36E;
 }
@@ -319,7 +338,7 @@ button {
   border: 1px solid black;
   border-radius: 5px;
   width: 70%;
-  height:  4rem;
+  height: 4rem;
   font-size: 1.5rem;
   padding: .5rem;
   margin: 2px;
@@ -337,7 +356,8 @@ button {
     grid-template-columns: 1fr;
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
     margin: 5px;
   }
@@ -363,4 +383,3 @@ button {
     width: 100%;
   }
 }
-
