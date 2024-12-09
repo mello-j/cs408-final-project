@@ -2,6 +2,18 @@
 
 ## Project Spec
 
+### Completed Project
+This was a very fun project, although my time in the end got very compressed due to work and other classes, so I didn't meet my stretch goals or get everything done that I would like to.
+
+I authored a few tests, but didn't get the coverage I wanted. Nor did I refactor my CSS neat enough to my liking. However I am pleased with the functionality of the Transact, Report, Download, and Delete pages! If I can finish up the dashboard at a later date to work with a filter, I'm pleased as that would be a baby version of a real life dashboard that could be applicable to work/etc.
+
+I learned I still have lots to learn, and I need to be more organized, it's a constant battle.
+
+I feel I've solidly hit the requirements of a B project, and was well on my way to an A-/A.
+Accessibility is good, but i'm lacking in code coverage, and form input sanitization (Although I have the distinct functionality pages working). I do also have all the CSS needed but...it's messy, and if time had allowed I would clean it up significantly.
+
+All in all happy to have completed this, and have some fun with it in the future!
+
 ### Theme
 I am feeling very indecisive about this project in general so I have come up with two ideas.
 Essentially the structure for both ideas will be the same, it is just the functionality that
