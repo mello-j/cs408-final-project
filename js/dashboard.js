@@ -11,6 +11,7 @@ window.onload = function() {
     detectActivePage();
     // Set up dashboard functionality
     toggleReporting();
+    
     fetchDashboardData().then(data => {
         if (data) {
             createDashboard(data);
@@ -18,6 +19,7 @@ window.onload = function() {
             console.error('Failed to fetch dashboard data');
         }
     });
+    updateDashboard();
 };
 
 //page -specific functions
@@ -177,3 +179,62 @@ function toggleReporting() {
         }
     });
 }
+
+
+//FINISH ME!
+// /*
+// * Update dashboard with new data
+//  */
+// function updateDashboard() {
+//     const reportButton = document.getElementById('generate-report');
+//     reportButton.addEventListener('click', () => {
+//         let filters = validateFormData();
+        
+//         createDashboard(filteredData);
+//     });
+// }
+
+// /**
+//  * Validates form data and returns filter object
+//  * @returns {Object} Filter object
+//  */
+// function validateFormData() {
+//     const dateFilter = document.getElementById('date-field').value;
+//     const amountFilter = document.getElementById('amount-field').value;
+//     const typeFilter = document.getElementById('transaction-field').value;
+//     const categoryFilter = document.getElementById('category-field').value;
+  
+//     const filters = {
+//        date: dateFilter,
+//        amount: amountFilter,
+//        type: typeFilter,
+//        category: categoryFilter
+//     }
+//     return filters;
+// }
+// /**
+//  * Validates transaction data against filter criteria
+//  * @param {Object} transaction - Transaction data to validate
+//  * @returns {boolean} Whether the transaction matches the filter criteria
+//  */
+// function validateResults(transaction) {
+//     let isMatch = true;
+
+//     if (filterData.date && transaction.date !== filterData.date) {
+//         isMatch = false;
+//     }
+
+//     if (filterData.amount && transaction.amount !== filterData.amount) {
+//         isMatch = false;
+//     }
+
+//     if (filterData.type && transaction.type !== filterData.type) {
+//         isMatch = false;
+//     }
+
+//     if (filterData.category && transaction.category !== filterData.category) {
+//         isMatch = false;
+//     }
+
+//     return isMatch;
+// }
