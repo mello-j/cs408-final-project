@@ -48,30 +48,30 @@
     </div>
     <button id="update-report">Show Dashboard Filter</button>
     <section id="dashboard-data-form">
-        <h2 id="form-header">Update Your User Dashboard!</h2>
+        <h2 id="form-header">Specify Criteria for your Report!</h2>
         <form id="data-form">
-            <label for="date-field">Date: </label>
-            <input type="date" id="date-field" name="date" required>
-            <label for="Amount">Amount: </label>
-            <input type="text" id="transaction-type" name="Transaction type" required placeholder="Enter an amount">
-            <label for="transaction-type">Type: </label>
-            <select id="transaction-type" name="transaction-type" required>
-                <option value="">-</option>
-                <option value="debit">Debit</option>
-                <option value="credit">Credit</option>
-            </select>
-            <label for="category-type">Category: </label>
-            <select id="category-type" name="category" required>
-                <option value="">-</option>
-                <option value="Rent">Rent</option>
-                <option value="FastFood">FastFood</option>
-                <option value="Supplies">Supplies</option>
-                <option value="Gas">Gas</option>
-                <option value="Fun">Fun</option>
-                <option value="Misc">Misc</option>
-            </select>
+          <label for="date-field">Date: </label>
+          <input type="date" id="date-field" name="date">
+          <label for="Amount">Amount: </label>
+          <input type="text" id="amount-field" name="Transaction type" placeholder="Enter an amount">
+          <label for="transaction-type">Type: </label>
+          <select id="transaction-field" name="transaction-type">
+            <option value="">-</option>
+            <option value="debit">Debit</option>
+            <option value="credit">Credit</option>
+          </select>
+          <label for="category-type">Category: </label>
+          <select id="category-field" name="category">
+            <option value="">-</option>
+            <option value="Rent">Rent</option>
+            <option value="FastFood">FastFood</option>
+            <option value="Supplies">Supplies</option>
+            <option value="Gas">Gas</option>
+            <option value="Fun">Fun</option>
+            <option value="Misc">Misc</option>
+          </select>
         </form>
-    </section>
+      </section>
     <button id="generate-report">Update Charts</button>
     <footer>
     </footer>

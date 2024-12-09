@@ -15,21 +15,6 @@ window.onload = function() {
 
 };
 
-// contact page -specific functions
-/**
- * Placeholder contact form handler
- * Currently displays an alert indicating functionality is disabled
- */
-function contactUs() {
-    const sendButton = document.getElementById('send');
-    sendButton.addEventListener('click', (event) => {
-        // Prevent default behavior if necessary (e.g., form submission)
-        if (event) event.preventDefault();
-        alert("Sorry, this function is disabled! Well actually I never enabled it :)");
-    });
-}
-
-
 /**
  * Fetches transaction data and stores in localStorage
  */
@@ -38,6 +23,10 @@ function fetchData() {
     reportButton.addEventListener('click', () => {
         console.log("fetching data from: ", apiRoute);
 
+        const queryFilter = validateFormData();
+        localStorage.setItem('filterData', JSON.stringify(queryFilter));
+ 
+        
         fetch(apiRoute)
             .then(response => {
                 console.log('Response:', response);
@@ -56,4 +45,19 @@ function fetchData() {
                 console.error('Error fetching data:', error);
             });
     });
+}
+
+function validateFormData() {
+     const dateFilter = document.getElementById('date-field').value;
+     const amountFilter = document.getElementById('amount-field').value;
+     const typeFilter = document.getElementById('transaction-field').value;
+     const categoryFilter = document.getElementById('category-field').value;
+   
+     const filters = {
+        date: dateFilter,
+        amount: amountFilter,
+        type: typeFilter,
+        category: categoryFilter
+     }
+     return filters;
 }

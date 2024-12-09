@@ -50,9 +50,7 @@ function createDashboard(data) {
     console.log(data);
     data.forEach(transaction => {
         console.log("test");
-        if (transaction.type === 'expense') {
-            categories[transaction.category] = (categories[transaction.category] || 0) + parseFloat(transaction.amount);
-        }
+        categories[transaction.category] = (categories[transaction.category] || 0) + parseFloat(transaction.amount);        
     });
 
     // Define chart colors
@@ -88,12 +86,20 @@ function createDashboard(data) {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Expenses by Category'
+                        text: 'Expenses by Category',
+                        font: {
+                            color: '#333'
+                        }
                     },
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,   // Set legend font size
+                            }
                     }
                 }
+            }
             }
         });
     }
@@ -125,8 +131,14 @@ function createDashboard(data) {
                         text: 'Category Breakdown'
                     },
                     legend: {
-                        display: false
+                        display: false,
+                        labels: {
+                            font: {
+                                size: 14,   // Set legend font size
+                            }
                     }
+                    }
+                    
                 },
                 scales: {
                     y: {

@@ -1,8 +1,10 @@
 // js/download.js
 import { insertNavbar, detectActivePage } from './main.js';
 
+let filterData;
 // Initialize download page
-document.addEventListener('DOMContentLoaded', function() {
+
+window.onload = function() {    
     // Insert navigation
     insertNavbar();
     
@@ -10,34 +12,40 @@ document.addEventListener('DOMContentLoaded', function() {
     detectActivePage();
     
     // Load existing data if any
+    filterData = JSON.parse(localStorage.getItem('filterData'));
+    console.log('Filter data:', filterData);
     let retrievedData = localStorage.getItem('transactionData');
     clearTable();
-    console.log(retrievedData);
 
     if (retrievedData) {
-        let parsedData = JSON.parse(retrievedData);
-        loadTable(parsedData);
-    } else {
+        if (filterData && Object.keys(filterData).some(key => filterData[key])) {
+            // filterData has at least one non-empty key
+            let parsedData = JSON.parse(retrievedData);
+            loadFilteredTable(parsedData);
+          } else {
+            let parsedData = JSON.parse(retrievedData);
+            loadTable(parsedData)
+          }
+    }
+    else {
         console.log('No data found in localStorage');
     }
 
     // Set up download functionality
     downloadCSV();
-});
+};
 
 /**
  * Populates table with transaction data
  * @param {Object|Array} transactions - Transaction data to display
  */
 function loadTable(transactions) {
-    console.log(transactions);
     const tableBody = document.querySelector("#transact-display-table tbody");
     tableBody.innerHTML = '';
 
     // Handle single transaction vs array
     if (!Array.isArray(transactions)) {
         const row = document.createElement('tr');
-        console.log(transactions);
         console.log(typeof transactions);
         row.innerHTML = `
             <td>${transactions.date}</td>
@@ -63,6 +71,49 @@ function loadTable(transactions) {
             <td>${transaction.desc}</td>
         `;
         tableBody.appendChild(row);
+    });
+}
+
+/**
+ * Populates table with transaction data
+ * @param {Object|Array} transactions - Transaction data to display
+ */
+function loadFilteredTable(transactions) {
+    const tableBody = document.querySelector("#transact-display-table tbody");
+    tableBody.innerHTML = '';
+
+    // Handle single transaction vs array
+    if (!Array.isArray(transactions)) {
+        if (validateResults(transactions)) {
+            const row = document.createElement('tr');
+            console.log(typeof transactions);
+            row.innerHTML = `
+                <td>${transactions.date}</td>
+                <td>${transactions.amount}</td>
+                <td>${transactions.type}</td>
+                <td>${transactions.category}</td>
+                <td>${transactions.id}</td>
+                <td>${transactions.desc}</td>
+            `;
+            tableBody.appendChild(row);
+            return;
+        }
+    }
+
+    // Handle array of transactions
+    transactions.forEach(transaction => {
+        if(validateResults(transaction)) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${transaction.date}</td>
+                <td>${transaction.amount}</td>
+                <td>${transaction.type}</td>
+                <td>${transaction.category}</td>
+                <td>${transaction.id}</td>
+                <td>${transaction.desc}</td>
+            `;
+            tableBody.appendChild(row);
+        }
     });
 }
 
@@ -130,4 +181,32 @@ function clearTable() {
         // Clear the localStorage data
         localStorage.removeItem('transactionData');
     });
+}
+
+
+/**
+ * Validates transaction data against filter criteria
+ * @param {Object} transaction - Transaction data to validate
+ * @returns {boolean} Whether the transaction matches the filter criteria
+ */
+function validateResults(transaction) {
+    let isMatch = true;
+
+    if (filterData.date && transaction.date !== filterData.date) {
+        isMatch = false;
+    }
+
+    if (filterData.amount && transaction.amount !== filterData.amount) {
+        isMatch = false;
+    }
+
+    if (filterData.type && transaction.type !== filterData.type) {
+        isMatch = false;
+    }
+
+    if (filterData.category && transaction.category !== filterData.category) {
+        isMatch = false;
+    }
+
+    return isMatch;
 }

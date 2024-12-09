@@ -8,7 +8,7 @@ export const apiRoute = "https://68y5yyii0l.execute-api.us-east-2.amazonaws.com/
  */
 export function insertNavbar() {
     /* Create the nav bar */
-    console.log("I am here!");
+    console.log("Justin was here!");
     const navHtml = `
         <nav>
             <ul>
@@ -61,6 +61,7 @@ export function detectActivePage() {
 
     return currentPage;
 }
+
 
 
 

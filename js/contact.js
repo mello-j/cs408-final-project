@@ -18,7 +18,7 @@ window.onload = function() {
  * Placeholder contact form handler
  * Currently displays an alert indicating functionality is disabled
  */
-function contactUs() {
+export function contactUs() {
     const sendButton = document.getElementById('send');
     sendButton.addEventListener('click', (event) => {
         // Prevent default behavior if necessary (e.g., form submission)

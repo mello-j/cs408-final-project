@@ -2,7 +2,7 @@
 import { insertNavbar, detectActivePage, apiRoute } from './main.js';
 
 // Initialize delete page
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function() {
     // Insert navigation
     insertNavbar();
     
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up delete functionality
     fetchDeleteData();
-});
+};
 
 /**
  * Fetches data and populates delete table with delete buttons
