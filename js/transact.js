@@ -152,8 +152,8 @@ function putData() {
                 id: String(id)
             }
             pushData(payload);
-            clearTransactionForm();
         }
+        clearTransactionForm();
         });
 }
 
@@ -173,7 +173,7 @@ async function pushDataFromTable() {
         const desc = row.querySelector('#table-desc-field').value;
 
         // Check if any of the values are empty
-        if (!date || !amount || !type || !category || !desc) {
+        if (!date || !amount || !type || !category ) {
             console.log("Empty row detected, skipping...");
             continue; // Skip this row
         }
@@ -187,8 +187,6 @@ async function pushDataFromTable() {
             id: String(id),
             desc: desc
         };
-
-        console.log(payload);
         await pushData(payload);
     }
 }
