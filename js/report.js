@@ -47,6 +47,10 @@ function fetchData() {
     });
 }
 
+/**
+ * Validates form data and returns filter object
+ * @returns {Object} Filter object
+ */
 function validateFormData() {
      const dateFilter = document.getElementById('date-field').value;
      const amountFilter = document.getElementById('amount-field').value;
